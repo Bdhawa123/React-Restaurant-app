@@ -9,10 +9,7 @@ class DishdetailComponent extends Component
     {
         super(props)
         {
-            this.state =
-            {
-                selectedDish:null
-            }
+            
         }
     }
     
