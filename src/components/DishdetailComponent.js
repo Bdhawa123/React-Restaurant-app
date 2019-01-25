@@ -1,27 +1,18 @@
 import React from 'react';
-import {Card, CardImg, CardImgOverlay, CardText, CardBody, CardTitle} from 'reactstrap'; 
+import {CardImg, CardText, CardBody, CardTitle, Breadcrumb, BreadcrumbItem} from 'reactstrap'; 
+import { Link } from 'react-router-dom'
     function RenderDish({dish}){
         if (dish!=null)
         {
             return (
-                <div className = "container">
-                    <div className= "row">
-                    <div className="col-12 col-md-5 m-1 container">
-                        <CardImg width="100%"  src={dish.image} alt ={dish.name}/>
-                        
-                        <CardBody>
-                            <CardTitle>{dish.name}</CardTitle>
-                            <CardText>{dish.description}</CardText>
-                        </CardBody>
-                    </div>
-
-
-                    <div className = "col-12 col-md-5 m-1 container">
-                        <RenderComments Comments ={dish.comments}/>
-                    </div>
-                    </div>
-                </div>
-            );
+                <div className="col-12 col-md-5 m-1 container">
+                    <CardImg width="100%"  src={dish.image} alt ={dish.name}/>
+                    
+                    <CardBody>
+                        <CardTitle>{dish.name}</CardTitle>
+                        <CardText>{dish.description}</CardText>
+                    </CardBody>      
+                </div>);
         }
         else
         {
@@ -33,46 +24,58 @@ import {Card, CardImg, CardImgOverlay, CardText, CardBody, CardTitle} from 'reac
 
     }
 
+   
     function RenderComments({Comments}){
 
         if (Comments!=null)
         {
-            const comm = Comments.map((comment) =>{
+            const Comm = Comments.map((commen)=>{
                 return(
-                    <div className = "row">
-                        <div className ="col-6">
-                        {comment.comment}
-                        </div>
-                        
-                        <div className = "col-6">
-                        {new Intl.DateTimeFormat('en-AU', { year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(comment.date)))}
-                        </div>
+                    <div> 
+                        <CardTitle>{commen.author}</CardTitle>
+                        <CardText>{commen.comment}</CardText>
+
                     </div>
-                
                 );
             });
-            return(
-                <div>
-                    {comm}
-                </div>
-            );
+            {return(
+                    <div className="col-12 col-md-5 m-1 container">
+                    {Comm}
+                
+                 </div>
+                );
+            }
         }
+        
         else
-        {
+        {   
             return(
-                <div>
-                    The comment section is empty
-                </div>
-            )
-        }
+                    <div>
+                        The comment section is empty
+                    </div>
+                )
+        }   
 
     }
     
     const DishdetailComponent = (props) =>{
         return (
-            <div>
-                <RenderDish dish={props.dish}/>
+            <div className="container">
+                <div className ="row">
+                    <Breadcrumb>
+                        <BreadcrumbItem><Link to ='/menu'>Menu</Link></BreadcrumbItem>
+                        <BreadcrumbItem active>{props.dish.name}</BreadcrumbItem>
+                    </Breadcrumb>
+                    <div className ="col-12">
+                        <h3>{props.dish.name}</h3>
+                        <hr/>
+                    </div>
+                </div>
                 
+                <div className ="row">
+                    <RenderDish dish={props.dish}/>
+                    <RenderComments Comments ={props.comments}/>   
+                </div>               
             </div>
         );
         
