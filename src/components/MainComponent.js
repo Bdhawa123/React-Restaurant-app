@@ -1,15 +1,18 @@
 import React, { Component } from 'react';
 import Menu from './MenuComponent';
-import { DISHES } from '../shared/dishes';
+import {Switch, Route, Redirect } from 'react-router-dom';
+
 import Header from './HeaderComponent';
 import Footer from './FooterComponent';
 import Contact from './ContactComponent';
 import Home from './HomeComponent';
-import {Switch, Route, Redirect } from 'react-router-dom';
+import DishdetailComponent from './DishdetailComponent';
+import About from './AboutComponent';
+
 import { COMMENTS } from '../shared/comments';
 import { PROMOTIONS } from '../shared/promotions';
 import { LEADERS } from '../shared/leaders';
-import DishdetailComponent from './DishdetailComponent';
+import { DISHES } from '../shared/dishes';
 
 
 class MainComponent extends Component {
@@ -49,6 +52,7 @@ onDishSelect(dishId){
 
       );
     }
+  
 
     return (
       <div>   
@@ -58,7 +62,8 @@ onDishSelect(dishId){
           <Route path ="/home" component={Homepage}/>
           <Route exact path="/menu" component ={()=><Menu dishes= {this.state.dishes}/>}/>
           <Route path = "/menu/:dishId" component = {DishWithId}/>
-          <Route exact path='/contactus' component={Contact} />} />
+          <Route exact path='/contactus' component={Contact} />
+          <Route exact path ='/aboutus' component= {()=><About leaders={this.state.leaders}/>}/>
           <Redirect to="/home"/>
 
         </Switch>
