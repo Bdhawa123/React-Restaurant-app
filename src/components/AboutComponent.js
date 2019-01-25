@@ -6,8 +6,6 @@ function RenderLeader({leader})
 {
     return(
        <Card >
-       
-
             <Media className="align-items-center">     
                 <div className="col-lg-md-2 col-sm-2 ">
                     <Media left >
