@@ -41,8 +41,6 @@ constructor(props){
 
 componentDidMount() {
   this.props.fetchDishes();
-  this.props.fetchComments();
-  this.props.fetchPromos();
 }
 
 onDishSelect(dishId){
@@ -89,7 +87,7 @@ onDishSelect(dishId){
           <Route path ="/home" component={Homepage}/>
           <Route exact path="/menu" component ={()=><Menu dishes= {this.props.dishes}/>}/>
           <Route path = "/menu/:dishId" component = {DishWithId}/>
-          <Route exact path='/contactus' component={() => <Contact resetFeedbackForm ={this.props.resetFeedbackForm}/>} />
+    <Route exact path='/contactus' component={() => <Contact resetFeedbackForm ={this.props.resetFeedbackForm}/>} />
           <Route exact path ='/aboutus' component= {()=><About leaders={this.props.leaders}/>}/>
           <Redirect to="/home"/>
 

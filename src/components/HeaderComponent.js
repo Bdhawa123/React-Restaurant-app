@@ -16,7 +16,7 @@ class Header extends Component{
     }
 
     toggleNav(){
-        this.setState({
+        this.state({
             isNavOpen:!this.state.isNavOpen
             
         });

@@ -41,8 +41,7 @@ function Home(props){
             <div className="row align-items-start">
                 <div className="col-12 col-md m-1">
                     <RenderCard item={props.dish} 
-                    isLoading={props.dishesLoading} 
-                    errMess = {props.dishesErrMess} />
+                    isLoading={props.dishesLoading} errMess = {props.dishesErrMess} />
                 </div>
                 <div className="col-12 col-md m-1">
                     
