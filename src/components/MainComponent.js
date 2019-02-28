@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Menu from './MenuComponent';
 import {Switch, Route, Redirect, withRouter } from 'react-router-dom';
 import {connect} from 'react-redux';
-import { addComment, fetchDishes, fetchComments, fetchPromos } from '../redux/ActionCreators';
+import {postComment, fetchDishes, fetchComments, fetchPromos } from '../redux/ActionCreators';
 import {actions } from 'react-redux-form';
  
 import Header from './HeaderComponent';
@@ -24,12 +24,13 @@ const mapStatetoProps = state=> {
 }
 
 const mapDispatchToProps = dispatch => ({
-  addComment: (dishId, rating, author, comment) => dispatch(addComment(dishId, rating, author, comment)),
+  postComment: (dishId, rating, author, comment) => dispatch(postComment(dishId, rating, author, comment)),
   fetchDishes: () => { dispatch(fetchDishes())},
   resetFeedbackForm: () => { dispatch(actions.reset('feedback'))},
   fetchComments: () => dispatch(fetchComments()),
   fetchPromos: () => dispatch(fetchPromos())
 });
+
 
 
 
@@ -41,6 +42,8 @@ constructor(props){
 
 componentDidMount() {
   this.props.fetchDishes();
+  this.props.fetchComments();
+  this.props.fetchPromos();
 }
 
 onDishSelect(dishId){
@@ -68,11 +71,11 @@ onDishSelect(dishId){
     const DishWithId = ({match})=> {
       return(
         <DishdetailComponent dish={this.props.dishes.dishes.filter((dish) => dish.id === parseInt(match.params.dishId,10))[0]}
-        isLoading={this.props.dishes.isLoading}
-        errMess={this.props.dishes.errMess}
-        comments={this.props.comments.comments.filter((comment) => comment.dishId === parseInt(match.params.dishId,10))}
-        commentsErrMess={this.props.comments.errMess}
-        addComment={this.props.addComment}
+          isLoading={this.props.dishes.isLoading}
+          errMess={this.props.dishes.errMess}
+          comments={this.props.comments.comments.filter((comment) => comment.dishId === parseInt(match.params.dishId,10))}
+          commentsErrMess={this.props.comments.errMess}
+          postComment={this.props.postComment}
       />
 
       );

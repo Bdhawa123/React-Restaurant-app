@@ -4,6 +4,7 @@ import {CardImg, CardText, CardBody, CardTitle, Breadcrumb, BreadcrumbItem,
 import { Link } from 'react-router-dom'
 import { LocalForm,Control,Errors } from 'react-redux-form';
 import { Loading} from './LoadingComponent';
+import { baseUrl } from '../shared/baseUrl';
 
 
 //validators
@@ -17,7 +18,7 @@ const minLength = (len) => (val)=> val&& (val.length>=len);
         {
             return (
                 <div className="col-12 col-md-5 m-1 container">
-                    <CardImg width="100%"  src={dish.image} alt ={dish.name}/>
+                   <CardImg top src={baseUrl + dish.image} alt={dish.name} />
                     
                     <CardBody>
                         <CardTitle>{dish.name}</CardTitle>
@@ -58,7 +59,7 @@ const minLength = (len) => (val)=> val&& (val.length>=len);
 
         handleSubmit(values)
         {
-            this.props.addComment(this.props.dishId, values.rating, values.name, values.comment);
+            this.props.postComment(this.props.dishId, values.rating, values.name, values.comment);
             console.log("Current State is"+JSON.stringify(values));
             alert("Current State is"+JSON.stringify(values));
         }
@@ -137,7 +138,7 @@ const minLength = (len) => (val)=> val&& (val.length>=len);
     }
 
    
-    function RenderComments({Comments,addComment,dishId}){
+    function RenderComments({Comments,postComment,dishId}){
 
         if (Comments!=null)
         {
@@ -156,7 +157,7 @@ const minLength = (len) => (val)=> val&& (val.length>=len);
                 return(
                     <div className="col-12 col-md-5 m-1 container">
                     {Comm}
-                    <CommentForm dishId={dishId} addComment={addComment}/>
+                    <CommentForm dishId={dishId} postComment={postComment}/>
                      </div>
                 );
             }
@@ -211,7 +212,7 @@ const minLength = (len) => (val)=> val&& (val.length>=len);
                         <div className ="row">
                             <RenderDish dish={props.dish}/>
                             <RenderComments Comments ={props.comments}
-                                addComment = {props.addComment}
+                                postComment = {props.postComment}
                                 dishId={props.dish.id}/>   
                             
                         </div>               
